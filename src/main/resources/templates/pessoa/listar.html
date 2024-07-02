@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout}">
+    <body th:fragment="content">                  
+                    <div class="card mt-2">
+                        <div class="card-header d-flex justify-content-between">
+                            <h5 class="card-title"><i class="fa-solid fa-address-book"></i> Listagem de Pessoa</h5>
+                            <a class="btn btn-success" href="/pessoa/create"><i class="fa-solid fa-plus"></i> Adicionar</a>
+                        </div>
+                        <div class="card-body">
+                            <table id="tabela" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nome</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="pessoa : ${pessoas}">
+                                        <td th:text="${pessoa.id}"></td>
+                                        <td th:text="${pessoa.nome}"></td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn btn-light" th:href="@{/pessoa/update/{id}(id=${pessoa.id})}"><i class="fa-solid fa-pencil"></i> Alterar</a>
+                                            </div>
+                                                <a class="btn btn-light" th:href="@{/pessoa/visualizar/{id}(id=${pessoa.id})}"><i class="fa-solid fa-eye"></i> Visualizar</a>
+                                                <a class="btn btn-light" th:href="@{/pessoa/remover/{id}(id=${pessoa.id})}"><i class="fa-regular fa-trash-can"></i> Remover</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>    
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $("#tabela").DataTable();
+                    });
+                </script>
+    </body>
+</html>
