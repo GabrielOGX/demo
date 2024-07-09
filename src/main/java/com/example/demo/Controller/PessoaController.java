@@ -29,7 +29,7 @@ public class PessoaController {
     @GetMapping("/pessoa")
     public String index(Model model){
 
-        List<Pessoa> pessoa = pessoaRepository.findAll();
+        List<Pessoa> pessoa = pessoaRepository.findByAtivo(true);
 
         model.addAttribute("pessoas", pessoa);
 
@@ -54,7 +54,7 @@ public class PessoaController {
             return "/pessoa/create";
         }
 
-        redirectAttributes.addFlashAttribute("mensagemSucesso", "Salvo com sucesso!");
+        redirectAttributes.addFlashAttribute("successMessage", "Salvo com sucesso!");
         pessoaRepository.save(pessoaForm.toEntity());
         
         return "redirect:/pessoa";
@@ -85,7 +85,32 @@ public class PessoaController {
             redirectAttributes.addFlashAttribute("mensagemSucesso","Alterado com sucesso");
             this.pessoaRepository.save(pessoa);
 
-            return "redirect:/pessoa/create";
+            return "redirect:/pessoa";
         }
 
+        @GetMapping("/pessoa/visualizar/{id}")  
+        public String visualizar(@PathVariable Long id, Model model){
+            Optional<Pessoa> pessoa = pessoaRepository.findById(id);
+            
+            PessoaForm pessoaForm = new PessoaForm(pessoa.get());
+    
+            model.addAttribute("pessoaForm", pessoaForm);
+            model.addAttribute("id", pessoa.get().getId());
+    
+            return "/pessoa/visualizar";
+        }
+
+        @GetMapping("/pessoa/remover/{id}")
+        public String remover(@PathVariable Long id, RedirectAttributes redirectAttributes){
+            Optional<Pessoa> pessoa = this.pessoaRepository.findById(id);
+            Pessoa pessoaModel = pessoa.get();
+
+            pessoaModel.setAtivo(false);
+            
+            this.pessoaRepository.save(pessoaModel);
+
+            redirectAttributes.addFlashAttribute("successMessage");
+
+            return "redirect:/pessoa";
+        }
 }

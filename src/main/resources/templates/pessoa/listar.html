@@ -24,7 +24,6 @@
                                         <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-light" th:href="@{/pessoa/update/{id}(id=${pessoa.id})}"><i class="fa-solid fa-pencil"></i> Alterar</a>
-                                            </div>
                                                 <a class="btn btn-light" th:href="@{/pessoa/visualizar/{id}(id=${pessoa.id})}"><i class="fa-solid fa-eye"></i> Visualizar</a>
                                                 <a class="btn btn-light" th:href="@{/pessoa/remover/{id}(id=${pessoa.id})}"><i class="fa-regular fa-trash-can"></i> Remover</a>
                                             </div>
@@ -35,9 +34,13 @@
                             </div>
                         </div>
                     </div>    
+
+                <script th:src="@{/js/traducao-datatables-ptbr.js}"></script>
                 <script type="text/javascript">
                     $(document).ready(function(){
-                        $("#tabela").DataTable();
+                        $("#tabela").DataTable({
+                            language: datatable_pt_br
+                        });
                     });
                 </script>
     </body>
