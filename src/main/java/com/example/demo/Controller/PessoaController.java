@@ -17,6 +17,7 @@ import com.example.demo.Repository.PessoaRepository;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -27,9 +28,10 @@ public class PessoaController {
     private PessoaRepository pessoaRepository;
 
     @GetMapping("/pessoa")
-    public String index(Model model){
+    public String index(Model model, @RequestParam("display") Optional<String>display){
+        String finalDisplay = display.orElse("true");
 
-        List<Pessoa> pessoa = pessoaRepository.findByAtivo(true);
+        List<Pessoa> pessoa = pessoaRepository.findByAtivo(Boolean.valueOf(finalDisplay));
 
         model.addAttribute("pessoas", pessoa);
 
@@ -105,7 +107,13 @@ public class PessoaController {
             Optional<Pessoa> pessoa = this.pessoaRepository.findById(id);
             Pessoa pessoaModel = pessoa.get();
 
-            pessoaModel.setAtivo(false);
+            if (pessoaModel.isAtivo()) {
+                pessoaModel.setAtivo(false);
+                redirectAttributes.addFlashAttribute("successMessage","Excluido com sucesso");
+            }else{
+                pessoaModel.setAtivo(true);
+                redirectAttributes.addFlashAttribute("successMessage","Recuperado com sucesso");
+            }
             
             this.pessoaRepository.save(pessoaModel);
 

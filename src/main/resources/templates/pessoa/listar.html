@@ -6,7 +6,17 @@
                     <div class="card mt-2">
                         <div class="card-header d-flex justify-content-between">
                             <h5 class="card-title"><i class="fa-solid fa-address-book"></i> Lista de Pessoa</h5>
-                            <a class="btn btn-success" href="/pessoa/create"><i class="fa-solid fa-plus"></i> Adicionar</a>
+                            <div class="btn-group">
+                                <a class="btn btn-success" href="/pessoa/create"><i class="fa-solid fa-plus"></i> Adicionar</a>
+                                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-splint" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="visually-hidden">Toggle</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/pessoa?display=false">Excluidos</a></li>
+                                    <li><a class="dropdown-item" href="/pessoa">Ativos</a></li>
+                                </ul>
+                            </div>
+
                         </div>
                         <div class="card-body">
                             <table id="tabela" class="table table-bordered">
@@ -25,7 +35,12 @@
                                             <div class="btn-group">
                                                 <a class="btn btn-light" th:href="@{/pessoa/update/{id}(id=${pessoa.id})}"><i class="fa-solid fa-pencil"></i> Alterar</a>
                                                 <a class="btn btn-light" th:href="@{/pessoa/visualizar/{id}(id=${pessoa.id})}"><i class="fa-solid fa-eye"></i> Visualizar</a>
+                                                <div th:if="${pessoa.ativo}">
                                                 <a class="btn btn-light" th:href="@{/pessoa/remover/{id}(id=${pessoa.id})}"><i class="fa-regular fa-trash-can"></i> Remover</a>
+                                                </div>
+                                                <div th:if="${not pessoa.ativo}">
+                                                    <a class="btn btn-light" th:href="@{/pessoa/remover/{id}(id=${pessoa.id})}"><i class="fa-solid fa-reply"></i> Recuperar</a>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
