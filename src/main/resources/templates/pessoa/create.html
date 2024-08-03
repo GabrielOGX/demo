@@ -16,6 +16,20 @@
                                     <input type="text" id="nome" placeholder="Ex.: João dos Exemplos" th:field="*{nome}" class="form-control">
                                     <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                                 </div>
+                                <div class="mb-3 col-md-3">
+                                    <label for="nascimento" class="form-label">Data de Nascimento:</label>
+                                    <input type="date" id="nascimento" th:field="*{nascimento}" class="form-control">
+                                    <div th:if="${errors != null && #fields.hasErrors('nascimento')}" th:errors="*{nascimento}"></div>
+                                </div>
+                                <div class="mb-3 col-md-3">
+                                    <label for="sexo" class="form-label">Sexo</label>
+                                    <select id="sexo" class="form-select" th:field="*{sexo}">
+                                        <option th:each="sexo : ${T(com.example.demo.Enum.Sexo).values()}"
+                                        th:value="${sexo.codigo}"
+                                        th:text="${sexo.descricao}"
+                                        ></option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between">

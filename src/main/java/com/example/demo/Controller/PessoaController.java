@@ -46,6 +46,7 @@ public class PessoaController {
         model.addAttribute("pessoaForm", new PessoaForm());
 
         return "pessoa/create";
+        
     }
     
     @PostMapping("/pessoa/create")
