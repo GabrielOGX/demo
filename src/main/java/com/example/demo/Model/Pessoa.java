@@ -38,6 +38,10 @@ public class Pessoa {
     @Enumerated(EnumType.ORDINAL)
     private Sexo sexo = Sexo.NAO_INFORMADO;
 
+    @ManyToOne
+    @JoinColumn(name = "deficiencia_id")
+    private Deficiencia deficiencia;
+
     public Pessoa(String nome, LocalDate nascimento, Sexo sexo){
         this.nome = nome;
         this.nascimento = nascimento;

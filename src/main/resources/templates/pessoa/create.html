@@ -30,6 +30,15 @@
                                         ></option>
                                     </select>
                                 </div>
+                                <div class="mb-3 col-md-3">
+                                    <label for="deficiencia" class="form-label">Deficiência</label>
+                                    <select id="deficiencia" class="form-select" th:field="*{deficiencia}">
+                                        <option th:each="deficiencia : *{listDeficiencias}"
+                                        th:value="${deficiencia.id}"
+                                        th:text="${deficiencia.nome}"
+                                        ></option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
